@@ -295,3 +295,19 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+TEST(TSet, Plus_is_commutative)
+{
+    TSet a(5), b(5);
+    a.InsElem(1);
+    b.InsElem(3);
+
+    EXPECT_EQ(a + b, b + a);
+}
+TEST(TSet, a__0)
+{
+    TSet a(5), b(5);
+    a.InsElem(1);
+
+    EXPECT_EQ(a*b, b);
+}
