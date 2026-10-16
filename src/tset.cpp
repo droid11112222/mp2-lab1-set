@@ -7,8 +7,6 @@
 
 #include "tset.h"
 
-// ==================== Конструкторы ====================
-
 TSet::TSet(int mp) : MaxPower(mp), BitField(mp)
 {
 }
@@ -25,8 +23,6 @@ TSet::operator TBitField()
 {
     return BitField;
 }
-
-// ==================== Доступ ====================
 
 int TSet::GetMaxPower(void) const
 {
@@ -50,8 +46,6 @@ void TSet::DelElem(const int Elem)
     if (Elem < 0 || Elem >= MaxPower) return;
     BitField.ClrBit(Elem);
 }
-
-// ==================== Операции ====================
 
 TSet& TSet::operator=(const TSet &s)
 {
@@ -114,7 +108,6 @@ TSet TSet::operator~(void) // дополнение
     return result;
 }
 
-// ==================== Ввод / вывод ====================
 
 istream &operator>>(istream &istr, TSet &s)
 {

@@ -7,10 +7,8 @@
 
 #include "tbitfield.h"
 
-// Количество бит в одном элементе памяти
 static const int BITS_PER_ELEM = sizeof(TELEM) * 8;
 
-// ==================== Конструкторы / деструктор ====================
 
 TBitField::TBitField(int len)
 {
@@ -36,7 +34,6 @@ TBitField::~TBitField()
     delete[] pMem;
 }
 
-// ==================== Вспомогательные методы ====================
 
 int TBitField::GetMemIndex(const int n) const // индекс Мем для бита n
 {
@@ -48,7 +45,6 @@ TELEM TBitField::GetMemMask(const int n) const // битовая маска дл
     return (TELEM)1 << (n % BITS_PER_ELEM);
 }
 
-// ==================== Доступ к битам ====================
 
 int TBitField::GetLength(void) const // получить длину (к-во битов)
 {
@@ -75,8 +71,6 @@ int TBitField::GetBit(const int n) const // получить значение б
         throw "TBitField::GetBit: index out of range";
     return (pMem[GetMemIndex(n)] & GetMemMask(n)) ? 1 : 0;
 }
-
-// ==================== Битовые операции ====================
 
 TBitField& TBitField::operator=(const TBitField &bf) // присваивание
 {
@@ -137,7 +131,6 @@ TBitField TBitField::operator~(void) // отрицание
     for (int i = 0; i < result.MemLen; i++)
         result.pMem[i] = ~result.pMem[i];
 
-    // Обнуляем лишние биты в последнем элементе
     if (result.BitLen > 0 && result.BitLen % BITS_PER_ELEM != 0)
     {
         int tail = result.BitLen % BITS_PER_ELEM;
@@ -148,7 +141,6 @@ TBitField TBitField::operator~(void) // отрицание
     return result;
 }
 
-// ==================== Ввод / вывод ====================
 
 istream &operator>>(istream &istr, TBitField &bf) // ввод
 {
@@ -171,7 +163,7 @@ istream &operator>>(istream &istr, TBitField &bf) // ввод
     return istr;
 }
 
-ostream &operator<<(ostream &ostr, const TBitField &bf) // вывод
+ostream &operator<<(ostream &ostr, const TBitField &bf)
 {
     for (int i = bf.BitLen - 1; i >= 0; i--)
         ostr << bf.GetBit(i);
